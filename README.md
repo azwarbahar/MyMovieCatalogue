@@ -2,6 +2,8 @@
 
 A modern, feature-rich Android application that provides users with a comprehensive movie discovery experience using The Movie Database (TMDB) API. Built with cutting-edge Android development technologies and Material Design 3 principles.
 
+### Install APK [HERE](https://github.com/azwarbahar/MyMovieCatalogue/blob/master/MyMovieCatalogue-Debug.apk) 
+
 ## ✨ Features
 
 - **🎯 Movie Discovery**: Browse trending movies, upcoming releases, and search across TMDB's extensive database
