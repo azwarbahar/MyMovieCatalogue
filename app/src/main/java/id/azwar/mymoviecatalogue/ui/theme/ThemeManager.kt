@@ -24,17 +24,17 @@ private val Context.dataStore by preferencesDataStore(name = "theme_preferences"
 private val IS_DARK_THEME_KEY = booleanPreferencesKey("is_dark_theme")
 
 class ThemeManager(private val context: Context) {
-    
+
     val isDarkTheme: Flow<Boolean> = context.dataStore.data.map { preferences ->
         preferences[IS_DARK_THEME_KEY] ?: false
     }
-    
+
     suspend fun setDarkTheme(isDark: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[IS_DARK_THEME_KEY] = isDark
         }
     }
-    
+
     suspend fun toggleTheme() {
         context.dataStore.edit { preferences ->
             val currentTheme = preferences[IS_DARK_THEME_KEY] ?: false
@@ -55,7 +55,7 @@ fun MovieCatalogueTheme(
 ) {
     val themeManager = rememberThemeManager()
     val isDarkTheme by themeManager.isDarkTheme.collectAsState(initial = isSystemInDarkTheme())
-    
+
     val colorScheme = if (isDarkTheme) {
         darkColorScheme(
             primary = Purple80,
@@ -69,7 +69,7 @@ fun MovieCatalogueTheme(
             tertiary = Pink40
         )
     }
-    
+
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,

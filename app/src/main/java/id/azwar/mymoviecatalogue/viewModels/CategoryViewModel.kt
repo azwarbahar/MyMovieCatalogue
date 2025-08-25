@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import id.azwar.mymoviecatalogue.domain.model.Movie
 import id.azwar.mymoviecatalogue.domain.model.Genre
-import id.azwar.mymoviecatalogue.domain.usecase.GetTrendingMoviesUseCase
-import id.azwar.mymoviecatalogue.domain.usecase.GetMovieGenresUseCase
-import id.azwar.mymoviecatalogue.domain.usecase.GetUpcomingMoviesUseCase
+import id.azwar.mymoviecatalogue.domain.usecase.GetMoviesByGenreUseCase
 import id.azwar.mymoviecatalogue.domain.usecase.FavoriteMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,21 +17,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val getTrendingMoviesUseCase: GetTrendingMoviesUseCase,
-    private val getMovieGenresUseCase: GetMovieGenresUseCase,
-    private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase,
+class CategoryViewModel @Inject constructor(
+    private val getMoviesByGenreUseCase: GetMoviesByGenreUseCase,
     private val favoriteMovieUseCase: FavoriteMovieUseCase
 ) : ViewModel() {
 
-    private val _trendingMovies = MutableStateFlow<List<Movie>>(emptyList())
-    val trendingMovies: StateFlow<List<Movie>> = _trendingMovies.asStateFlow()
-
-    private val _genres = MutableStateFlow<List<Genre>>(emptyList())
-    val genres: StateFlow<List<Genre>> = _genres.asStateFlow()
-
-    private val _upcomingMovies = MutableStateFlow<List<Movie>>(emptyList())
-    val upcomingMovies: StateFlow<List<Movie>> = _upcomingMovies.asStateFlow()
+    private val _movies = MutableStateFlow<List<Movie>>(emptyList())
+    val movies: StateFlow<List<Movie>> = _movies.asStateFlow()
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -41,35 +31,26 @@ class HomeViewModel @Inject constructor(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
 
+    private var currentGenre: Genre? = null
     private var currentMovieId: Long = 0L
 
-    init {
-        loadData()
+    fun setGenreAndLoadMovies(genre: Genre) {
+        currentGenre = genre
+        loadMoviesByGenre(genre)
     }
 
-    private fun loadData() {
+    private fun loadMoviesByGenre(genre: Genre) {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
                 _errorMessage.value = null
 
-
-                getTrendingMoviesUseCase("week").collect { movies ->
-                    _trendingMovies.value = movies
-                }
-
-
-                getMovieGenresUseCase().collect { genres ->
-                    _genres.value = genres
-                }
-
-
-                getUpcomingMoviesUseCase().collect { movies ->
-                    _upcomingMovies.value = movies
+                getMoviesByGenreUseCase(genre.id).collect { movies ->
+                    _movies.value = movies
                 }
 
             } catch (e: Exception) {
-                _errorMessage.value = "Failed to load data: ${e.message}"
+                _errorMessage.value = "Failed to load movies: ${e.message}"
             } finally {
                 _isLoading.value = false
             }
@@ -92,9 +73,7 @@ class HomeViewModel @Inject constructor(
     fun toggleFavorite() {
         viewModelScope.launch {
             try {
-                val currentMovie = _trendingMovies.value.find { it.id == currentMovieId }
-                    ?: _upcomingMovies.value.find { it.id == currentMovieId }
-
+                val currentMovie = _movies.value.find { it.id == currentMovieId }
                 currentMovie?.let { movie ->
                     favoriteMovieUseCase.toggleFavorite(movie)
                 }
@@ -108,7 +87,5 @@ class HomeViewModel @Inject constructor(
         return favoriteMovieIds.value.contains(movieId)
     }
 
-    fun refresh() {
-        loadData()
-    }
+    fun getCurrentGenre(): Genre? = currentGenre
 }

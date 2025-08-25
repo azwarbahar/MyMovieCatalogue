@@ -1,61 +1,27 @@
 package id.azwar.mymoviecatalogue.util
 
-import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Search
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.ui.graphics.vector.ImageVector
-import id.azwar.mymoviecatalogue.R
-import kotlinx.serialization.Serializable
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import id.azwar.mymoviecatalogue.domain.model.Genre
 
-@Serializable
-sealed class MainNavigationBuilder {
-    @Serializable data object Home : MainNavigationBuilder()
-    @Serializable data object Search : MainNavigationBuilder()
-    @Serializable data object Favorites : MainNavigationBuilder()
-    @Serializable data object Settings : MainNavigationBuilder()
-    @Serializable data class Details(val movieId: Long, val fromFavorites: Boolean = false) : MainNavigationBuilder()
-
-    enum class MainDestinations(
-        @StringRes val label: Int,
-        val iconFilled: ImageVector,
-        val iconOutlined: ImageVector,
-        @StringRes val contentDescription: Int,
-        val view: MainNavigationBuilder,
-    ) {
-        HOME(
-            R.string.home_title,
-            Icons.Filled.Home,
-            Icons.Outlined.Home,
-            R.string.home_title,
-            Home,
-        ),
-        SEARCH(
-            R.string.search_title,
-            Icons.Filled.Search,
-            Icons.Outlined.Search,
-            R.string.search_title,
-            Search,
-        ),
-        FAVORITES(
-            R.string.favorites_title,
-            Icons.Filled.Favorite,
-            Icons.Outlined.FavoriteBorder,
-            R.string.favorites_title,
-            Favorites,
-        ),
-        SETTINGS(
-            R.string.settings_title,
-            Icons.Filled.Settings,
-            Icons.Outlined.Settings,
-            R.string.settings_title,
-            Settings,
-        ),
+sealed class MainDestinations(val route: String) {
+    data object Home : MainDestinations("home")
+    data object Search : MainDestinations("search")
+    data object Details : MainDestinations("details/{movieId}") {
+        fun createRoute(movieId: Long) = "details/$movieId"
+    }
+    data object Favorites : MainDestinations("favorites")
+    data object Settings : MainDestinations("settings")
+    data object Category : MainDestinations("category/{genreId}/{genreName}") {
+        fun createRoute(genre: Genre) = "category/${genre.id}/${genre.name}"
     }
 }
+
+val mainNavigationGraph = listOf(
+    MainDestinations.Home,
+    MainDestinations.Search,
+    MainDestinations.Details,
+    MainDestinations.Favorites,
+    MainDestinations.Settings,
+    MainDestinations.Category
+)

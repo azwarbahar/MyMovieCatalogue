@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetMovieDetailsUseCaseImpl @Inject constructor(
     private val movieRepository: MovieRepository
 ) : GetMovieDetailsUseCase {
-    
+
     override suspend operator fun invoke(movieId: Long): Flow<MovieDetails?> {
         return movieRepository.getMovieDetails(movieId)
     }

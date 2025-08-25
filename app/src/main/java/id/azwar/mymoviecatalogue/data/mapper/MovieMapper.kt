@@ -8,11 +8,9 @@ import id.azwar.mymoviecatalogue.domain.model.Movie
 import id.azwar.mymoviecatalogue.domain.model.MovieDetails
 import id.azwar.mymoviecatalogue.domain.model.Genre
 import id.azwar.mymoviecatalogue.domain.model.ProductionCompany
-import id.azwar.mymoviecatalogue.data.local.entity.FavoriteMovieEntity
-import id.azwar.mymoviecatalogue.domain.model.FavoriteMovie
 
-object MovieMapper {
-    
+class MovieMapper {
+
     fun mapMovieDtoToDomain(movieDto: MovieDto): Movie {
         return Movie(
             id = movieDto.id,
@@ -32,7 +30,7 @@ object MovieMapper {
             genreIds = movieDto.genreIds
         )
     }
-    
+
     fun mapMovieDetailsDtoToDomain(movieDetailsDto: MovieDetailsDto): MovieDetails {
         return MovieDetails(
             id = movieDetailsDto.id,
@@ -49,28 +47,26 @@ object MovieMapper {
             originalLanguage = movieDetailsDto.originalLanguage,
             runtime = movieDetailsDto.runtime,
             genres = movieDetailsDto.genres.map { mapGenreDtoToDomain(it) },
-            productionCompanies = movieDetailsDto.productionCompanies.map { mapProductionCompanyDtoToDomain(it) }
+            productionCompanies = movieDetailsDto.productionCompanies.map { 
+                ProductionCompany(
+                    id = it.id,
+                    name = it.name,
+                    logoPath = it.logoPath,
+                    originCountry = it.originCountry
+                )
+            }
         )
     }
-    
-    private fun mapGenreDtoToDomain(genreDto: GenreDto): Genre {
+
+    fun mapGenreDtoToDomain(genreDto: GenreDto): Genre {
         return Genre(
             id = genreDto.id,
             name = genreDto.name
         )
     }
-    
-    private fun mapProductionCompanyDtoToDomain(productionCompanyDto: ProductionCompanyDto): ProductionCompany {
-        return ProductionCompany(
-            id = productionCompanyDto.id,
-            name = productionCompanyDto.name,
-            logoPath = productionCompanyDto.logoPath,
-            originCountry = productionCompanyDto.originCountry
-        )
-    }
-    
-    fun mapMovieToFavoriteMovie(movie: Movie): FavoriteMovie {
-        return FavoriteMovie(
+
+    fun mapDomainToFavoriteMovieEntity(movie: Movie): id.azwar.mymoviecatalogue.data.local.entity.FavoriteMovieEntity {
+        return id.azwar.mymoviecatalogue.data.local.entity.FavoriteMovieEntity(
             id = movie.id,
             title = movie.title,
             originalTitle = movie.originalTitle,
@@ -87,44 +83,24 @@ object MovieMapper {
             video = movie.video
         )
     }
-    
-    fun mapFavoriteMovieEntityToDomain(favoriteMovieEntity: FavoriteMovieEntity): FavoriteMovie {
-        return FavoriteMovie(
-            id = favoriteMovieEntity.id,
-            title = favoriteMovieEntity.title,
-            originalTitle = favoriteMovieEntity.originalTitle,
-            overview = favoriteMovieEntity.overview,
-            posterPath = favoriteMovieEntity.posterPath,
-            backdropPath = favoriteMovieEntity.backdropPath,
-            releaseDate = favoriteMovieEntity.releaseDate,
-            voteAverage = favoriteMovieEntity.voteAverage,
-            voteCount = favoriteMovieEntity.voteCount,
-            popularity = favoriteMovieEntity.popularity,
-            adult = favoriteMovieEntity.adult,
-            originalLanguage = favoriteMovieEntity.originalLanguage,
-            mediaType = favoriteMovieEntity.mediaType,
-            video = favoriteMovieEntity.video,
-            addedAt = favoriteMovieEntity.addedAt
-        )
-    }
-    
-    fun mapFavoriteMovieToEntity(favoriteMovie: FavoriteMovie): FavoriteMovieEntity {
-        return FavoriteMovieEntity(
-            id = favoriteMovie.id,
-            title = favoriteMovie.title,
-            originalTitle = favoriteMovie.originalTitle,
-            overview = favoriteMovie.overview,
-            posterPath = favoriteMovie.posterPath,
-            backdropPath = favoriteMovie.backdropPath,
-            releaseDate = favoriteMovie.releaseDate,
-            voteAverage = favoriteMovie.voteAverage,
-            voteCount = favoriteMovie.voteCount,
-            popularity = favoriteMovie.popularity,
-            adult = favoriteMovie.adult,
-            originalLanguage = favoriteMovie.originalLanguage,
-            mediaType = favoriteMovie.mediaType,
-            video = favoriteMovie.video,
-            addedAt = favoriteMovie.addedAt
+
+    fun mapFavoriteMovieEntityToDomain(entity: id.azwar.mymoviecatalogue.data.local.entity.FavoriteMovieEntity): id.azwar.mymoviecatalogue.domain.model.FavoriteMovie {
+        return id.azwar.mymoviecatalogue.domain.model.FavoriteMovie(
+            id = entity.id,
+            title = entity.title,
+            originalTitle = entity.originalTitle,
+            overview = entity.overview,
+            posterPath = entity.posterPath,
+            backdropPath = entity.backdropPath,
+            releaseDate = entity.releaseDate,
+            voteAverage = entity.voteAverage,
+            voteCount = entity.voteCount,
+            popularity = entity.popularity,
+            adult = entity.adult,
+            originalLanguage = entity.originalLanguage,
+            mediaType = entity.mediaType,
+            video = entity.video,
+            addedAt = entity.addedAt
         )
     }
 }

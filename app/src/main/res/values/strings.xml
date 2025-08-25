@@ -1,26 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Movie Catalogue</string>
-    <!-- Page Titles -->
+    <string name="app_name">MyMovieCatalogue</string>
+    
+    <!-- Navigation -->
     <string name="home_title">Home</string>
     <string name="search_title">Search</string>
     <string name="favorites_title">Favorites</string>
-    <string name="details_title">Details</string>
     <string name="settings_title">Settings</string>
-
-
-    <!-- Text Labels -->
-    <string name="tmdb_movie_header">TMDB Movie</string>
-    <string name="most_popular">Most Popular</string>
-    <string name="overview">Overview</string>
-    <string name="director_author">Director, Writer</string>
+    <string name="back">Back</string>
+    <string name="tmdb_movie_header">TMDB Movie Header</string>
+    <string name="favorite">Favorite</string>
+    <string name="remove_favorite">Remove from favorites</string>
     <string name="adult">Adult</string>
     <string name="not_adult">Not Adult</string>
+    <string name="director_author">Director/Author</string>
+    <string name="delete">Delete</string>
+    <string name="favorites">Favorites</string>
     
-    <!-- Search Labels -->
+    <!-- Home Screen -->
+    <string name="trending_movies">Trending Movies</string>
+    <string name="categories">Categories</string>
+    <string name="upcoming_movies">Upcoming Movies</string>
+    <string name="most_popular">Most Popular</string>
+    
+    <!-- Search Screen -->
     <string name="search_placeholder">Search for movies...</string>
     <string name="search_results">Search Results</string>
-    <string name="no_movies_found">No movies found for</string>
-    <string name="start_typing">Start typing to search for movies</string>
+    <string name="no_movies_found">No Movies found for \'%s\'</string>
+    <string name="start_typing">Start typing to search movies</string>
     <string name="filters">Filters</string>
     <string name="show">Show</string>
     <string name="hide">Hide</string>
@@ -31,17 +38,34 @@
     <string name="all_years">All Years</string>
     <string name="all_ratings">All Ratings</string>
     
-    <!-- Button Labels -->
-    <string name="day">Day</string>
-    <string name="week">Week</string>
-    <string name="delete">Remove</string>
-    <string name="favorites">Favorites</string>
-    <string name="back">Back</string>
-
-    <!-- Image Alt Text -->
-    <string name="rating_label">Rating:</string>
-    <string name="movie_poster">Movie Poster</string>
-    <string name="favorite">Favorite</string>
-    <string name="remove_favorite">Remove Favorite</string>
-
+    <!-- Movie Details -->
+    <string name="movie_details">Movie Details</string>
+    <string name="rating_label">Rating</string>
+    <string name="release_date">Release Date</string>
+    <string name="overview">Overview</string>
+    <string name="genres">Genres</string>
+    <string name="production_companies">Production Companies</string>
+    <string name="runtime">Runtime</string>
+    <string name="minutes">%d min</string>
+    <string name="votes">Votes</string>
+    <string name="movie_backdrop">Movie backdrop for %s</string>
+    
+    <!-- Favorites -->
+    <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="no_favorites">No favorite movies yet</string>
+    
+    <!-- Category Screen -->
+    <string name="category_title">Category</string>
+    <string name="no_movies_found_genre">No movies found in this category</string>
+    
+    <!-- Common -->
+    <string name="back_button">Back</string>
+    <string name="movie_poster">Movie poster for %s</string>
+    <string name="genre_icon">Icon for %s genre</string>
+    
+    <!-- Error Messages -->
+    <string name="error_loading_data">Error loading data</string>
+    <string name="error_network">Network error</string>
+    <string name="error_unknown">Unknown error occurred</string>
 </resources>

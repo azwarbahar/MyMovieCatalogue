@@ -10,27 +10,27 @@ import javax.inject.Inject
 class FavoriteMovieUseCaseImpl @Inject constructor(
     private val favoriteMovieRepository: FavoriteMovieRepository
 ) : FavoriteMovieUseCase {
-    
+
     override suspend fun addToFavorites(movie: Movie) {
         favoriteMovieRepository.addToFavorites(movie)
     }
-    
+
     override suspend fun removeFromFavorites(movieId: Long) {
         favoriteMovieRepository.removeFromFavorites(movieId)
     }
-    
+
     override suspend fun toggleFavorite(movie: Movie) {
         favoriteMovieRepository.toggleFavorite(movie)
     }
-    
+
     override suspend fun isMovieFavorite(movieId: Long): Boolean {
         return favoriteMovieRepository.isMovieFavorite(movieId)
     }
-    
+
     override fun getAllFavoriteMovies(): Flow<List<FavoriteMovie>> {
         return favoriteMovieRepository.getAllFavoriteMovies()
     }
-    
+
     override fun getFavoriteMoviesCount(): Flow<Int> {
         return favoriteMovieRepository.getFavoriteMoviesCount()
     }

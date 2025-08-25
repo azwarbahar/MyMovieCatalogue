@@ -13,17 +13,16 @@ class FavoriteMovieRepositoryImpl @Inject constructor(
     private val localDataSource: MovieLocalDataSource,
     private val mapper: MovieMapper
 ) : FavoriteMovieRepository {
-    
+
     override suspend fun addToFavorites(movie: Movie) {
-        val favoriteMovie = mapper.mapMovieToFavoriteMovie(movie)
-        val entity = mapper.mapFavoriteMovieToEntity(favoriteMovie)
+        val entity = mapper.mapDomainToFavoriteMovieEntity(movie)
         localDataSource.insertFavoriteMovie(entity)
     }
-    
+
     override suspend fun removeFromFavorites(movieId: Long) {
         localDataSource.deleteFavoriteMovieById(movieId)
     }
-    
+
     override suspend fun toggleFavorite(movie: Movie) {
         val isFavorite = isMovieFavorite(movie.id)
         if (isFavorite) {
@@ -32,11 +31,11 @@ class FavoriteMovieRepositoryImpl @Inject constructor(
             addToFavorites(movie)
         }
     }
-    
+
     override suspend fun isMovieFavorite(movieId: Long): Boolean {
         return localDataSource.isMovieFavorite(movieId)
     }
-    
+
     override fun getAllFavoriteMovies(): Flow<List<FavoriteMovie>> {
         return localDataSource.getAllFavoriteMovies().map { entities ->
             entities.map { entity ->
@@ -44,7 +43,7 @@ class FavoriteMovieRepositoryImpl @Inject constructor(
             }
         }
     }
-    
+
     override fun getFavoriteMoviesCount(): Flow<Int> {
         return localDataSource.getFavoriteMoviesCount()
     }

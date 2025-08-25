@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -39,16 +40,16 @@ import java.util.Locale
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MovieListCarousel(
-    onCardClick: (Long) -> Unit,
     movies: List<Movie>,
+    onMovieClick: (Movie) -> Unit,
+    onFavoriteClick: (Movie) -> Unit,
     favoriteMovieIds: List<Long>,
-    toggleFavorite: () -> Unit,
-    setMovieId: (Long) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val posterURL = "https://image.tmdb.org/t/p/w500"
     HorizontalMultiBrowseCarousel(
         state = rememberCarouselState { movies.count() },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(400.dp),
         preferredItemWidth = 200.dp,
@@ -64,7 +65,7 @@ fun MovieListCarousel(
                     .height(300.dp)
                     .maskClip(MaterialTheme.shapes.extraLarge),
                 onClick = {
-                    onCardClick(movie.id)
+                    onMovieClick(movie)
                 }
             ) {
                 Box(
@@ -73,12 +74,12 @@ fun MovieListCarousel(
                     if (movie.posterPath != null) {
                         AsyncImage(
                             model = posterURL + movie.posterPath,
-                            contentDescription = stringResource(R.string.movie_poster),
+                            contentDescription = stringResource(R.string.movie_poster, movie.title),
                             contentScale = ContentScale.FillHeight,
                             modifier = Modifier.fillMaxSize()
                         )
                     } else {
-                        // Fallback when poster is null
+
                         Box(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -98,18 +99,24 @@ fun MovieListCarousel(
                     val isFavorite = favoriteMovieIds.contains(movie.id)
                     IconButton(
                         onClick = {
-                            setMovieId(movie.id)
-                            toggleFavorite()
+                            onFavoriteClick(movie)
                         },
                         modifier = Modifier
                             .align(Alignment.TopEnd)
+                            .padding(8.dp)
+                            .size(32.dp)
+                            .background(
+                                color = MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
+                                shape = MaterialTheme.shapes.medium
+                            )
                     ) {
                         Icon(
-                            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-                            contentDescription = if (isFavorite) stringResource(R.string.favorite) else stringResource(
-                                R.string.remove_favorite
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Outlined.FavoriteBorder,
+                            contentDescription = stringResource(
+                                if (isFavorite) R.string.remove_from_favorites else R.string.add_to_favorites
                             ),
-                            tint = Color.Red
+                            tint = if (isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(20.dp)
                         )
                     }
                 }

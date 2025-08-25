@@ -10,10 +10,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object MapperModule {
-    
+
     @Provides
     @Singleton
     fun provideMovieMapper(): MovieMapper {
-        return MovieMapper
+        return MovieMapper()
     }
 }

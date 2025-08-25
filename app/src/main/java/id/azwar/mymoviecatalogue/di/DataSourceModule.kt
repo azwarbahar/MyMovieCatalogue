@@ -13,13 +13,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class DataSourceModule {
-    
+
     @Binds
     @Singleton
     abstract fun bindMovieRemoteDataSource(
         movieRemoteDataSourceImpl: MovieRemoteDataSourceImpl
     ): MovieRemoteDataSource
-    
+
     @Binds
     @Singleton
     abstract fun bindMovieLocalDataSource(

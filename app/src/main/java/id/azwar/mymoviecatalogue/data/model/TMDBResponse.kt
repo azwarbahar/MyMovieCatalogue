@@ -11,6 +11,10 @@ data class TMDBResponse(
     val totalResults: Int
 )
 
+data class GenreListResponse(
+    val genres: List<GenreDto>
+)
+
 data class MovieDto(
     val id: Long,
     val title: String,

@@ -20,7 +20,7 @@ class SearchViewModel @Inject constructor(
     private val searchMoviesUseCase: SearchMoviesUseCase,
     private val favoriteMovieUseCase: FavoriteMovieUseCase
 ) : ViewModel() {
-    
+
     private val _searchResults = MutableStateFlow<List<Movie>>(emptyList())
     val searchResults: StateFlow<List<Movie>> = _searchResults.asStateFlow()
 
@@ -34,7 +34,7 @@ class SearchViewModel @Inject constructor(
 
     fun searchMovies(query: String) {
         if (query.isBlank() || query.length < 2) return
-        
+
         println("🔍 SearchViewModel: Starting search for query: '$query'")
         _isLoading.value = true
         _errorMessage.value = null

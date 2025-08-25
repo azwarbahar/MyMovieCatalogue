@@ -15,17 +15,17 @@ import id.azwar.mymoviecatalogue.data.local.entity.FavoriteMovieEntity
     exportSchema = false
 )
 abstract class MovieDatabase : RoomDatabase() {
-    
+
     abstract fun favoriteMovieDao(): FavoriteMovieDao
-    
+
     companion object {
         @Volatile
         private var INSTANCE: MovieDatabase? = null
-        
-        // Migration from version 1 to 2
+
+
         private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                // Create temporary table with new schema
+
                 database.execSQL(
                     "CREATE TABLE favorite_movies_new (" +
                     "id INTEGER NOT NULL PRIMARY KEY, " +
@@ -45,8 +45,8 @@ abstract class MovieDatabase : RoomDatabase() {
                     "addedAt INTEGER NOT NULL" +
                     ")"
                 )
-                
-                // Copy data from old table to new table
+
+
                 database.execSQL(
                     "INSERT INTO favorite_movies_new (" +
                     "id, title, originalTitle, overview, posterPath, backdropPath, " +
@@ -58,19 +58,19 @@ abstract class MovieDatabase : RoomDatabase() {
                     "originalLanguage, mediaType, video, addedAt " +
                     "FROM favorite_movies"
                 )
-                
-                // Drop old table
+
+
                 database.execSQL("DROP TABLE favorite_movies")
-                
-                // Rename new table to original name
+
+
                 database.execSQL("ALTER TABLE favorite_movies_new RENAME TO favorite_movies")
             }
         }
-        
-        // Migration from version 2 to 3
+
+
         private val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                // Create temporary table with nullable mediaType
+
                 database.execSQL(
                     "CREATE TABLE favorite_movies_new (" +
                     "id INTEGER NOT NULL PRIMARY KEY, " +
@@ -90,8 +90,8 @@ abstract class MovieDatabase : RoomDatabase() {
                     "addedAt INTEGER NOT NULL" +
                     ")"
                 )
-                
-                // Copy data from old table to new table
+
+
                 database.execSQL(
                     "INSERT INTO favorite_movies_new (" +
                     "id, title, originalTitle, overview, posterPath, backdropPath, " +
@@ -103,15 +103,15 @@ abstract class MovieDatabase : RoomDatabase() {
                     "originalLanguage, mediaType, video, addedAt " +
                     "FROM favorite_movies"
                 )
-                
-                // Drop old table
+
+
                 database.execSQL("DROP TABLE favorite_movies")
-                
-                // Rename new table to original name
+
+
                 database.execSQL("ALTER TABLE favorite_movies_new RENAME TO favorite_movies")
             }
         }
-        
+
         fun getDatabase(context: Context): MovieDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
