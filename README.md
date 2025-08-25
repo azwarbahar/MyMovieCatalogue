@@ -132,31 +132,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## 👨‍💻 Author
-
-**Muhammad Azwar Bahar**
-- **GitHub**: [@azwarbahar](https://github.com/azwarbahar)
-- **LinkedIn**: [Azwar Bahar](https://www.linkedin.com/in/-azwar-bahar/)
-- **Instagram**: [@azwarbahar_](https://www.instagram.com/azwarbahar_/)
-- **Email**: azwarbahar07@gmail.com
-
-## 🙏 Acknowledgments
-
-- **TMDB**: For providing the comprehensive movie database API
-- **Google**: For Jetpack Compose and Android development tools
-- **JetBrains**: For Kotlin programming language
-- **Open Source Community**: For the amazing libraries and tools
-
-## 📞 Support
-
-If you have any questions or need support:
-
-1. **Check the Issues**: Look for similar problems in the [Issues](https://github.com/azwarbahar/MyMovieCatalogue/issues) section
-2. **Create an Issue**: If your problem isn't already reported, create a new issue
-3. **Contact**: Reach out via email or social media
-
----
-
 ⭐ **If you find this project helpful, please give it a star!** ⭐
 
 Made with ❤️ by [Muhammad Azwar Bahar](https://github.com/azwarbahar)
