@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <!-- Page Titles -->
+    <string name="home_title">Home</string>
+    <string name="favorites_title">Favorites</string>
+    <string name="details_title">Details</string>
+    <string name="settings_title">Settings</string>
+
+
+    <!-- Text Labels -->
+    <string name="tmdb_movie_header">TMDB Movie</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="overview">Overview</string>
+    <string name="director_author">Director, Writer</string>
+    <string name="adult">Adult</string>
+    <string name="not_adult">Not Adult</string>
+    <!-- Button Labels -->
+    <string name="day">Day</string>
+    <string name="week">Week</string>
+    <string name="delete">Remove</string>
+    <string name="favorites">Favorites</string>
+    <string name="back">Back</string>
+
+    <!-- Image Alt Text -->
+    <string name="rating">Rating:</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="favorite">Favorite</string>
+    <string name="remove_favorite">Remove Favorite</string>
+
+</resources>
