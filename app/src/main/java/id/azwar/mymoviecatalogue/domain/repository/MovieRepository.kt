@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface MovieRepository {
     suspend fun getTrendingMovies(timeWindow: String): Flow<List<Movie>>
     suspend fun getMovieDetails(movieId: Long): Flow<MovieDetails?>
+    suspend fun searchMovies(query: String): Flow<List<Movie>>
 }

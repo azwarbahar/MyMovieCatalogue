@@ -7,9 +7,11 @@ import dagger.hilt.components.SingletonComponent
 import id.azwar.mymoviecatalogue.domain.usecase.GetTrendingMoviesUseCase
 import id.azwar.mymoviecatalogue.domain.usecase.GetMovieDetailsUseCase
 import id.azwar.mymoviecatalogue.domain.usecase.FavoriteMovieUseCase
+import id.azwar.mymoviecatalogue.domain.usecase.SearchMoviesUseCase
 import id.azwar.mymoviecatalogue.domain.usecase.impl.GetTrendingMoviesUseCaseImpl
 import id.azwar.mymoviecatalogue.domain.usecase.impl.GetMovieDetailsUseCaseImpl
 import id.azwar.mymoviecatalogue.domain.usecase.impl.FavoriteMovieUseCaseImpl
+import id.azwar.mymoviecatalogue.domain.usecase.impl.SearchMoviesUseCaseImpl
 import javax.inject.Singleton
 
 @Module
@@ -33,4 +35,10 @@ abstract class UseCaseModule {
     abstract fun bindFavoriteMovieUseCase(
         favoriteMovieUseCaseImpl: FavoriteMovieUseCaseImpl
     ): FavoriteMovieUseCase
+    
+    @Binds
+    @Singleton
+    abstract fun bindSearchMoviesUseCase(
+        searchMoviesUseCaseImpl: SearchMoviesUseCaseImpl
+    ): SearchMoviesUseCase
 }

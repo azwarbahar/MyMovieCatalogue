@@ -6,4 +6,5 @@ import id.azwar.mymoviecatalogue.data.model.MovieDetailsDto
 interface MovieRemoteDataSource {
     suspend fun getTrendingMovies(timeWindow: String): TMDBResponse
     suspend fun getMovieDetails(movieId: Long): MovieDetailsDto
+    suspend fun searchMovies(query: String): TMDBResponse
 }

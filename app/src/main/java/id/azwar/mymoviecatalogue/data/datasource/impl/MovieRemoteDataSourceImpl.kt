@@ -17,4 +17,21 @@ class MovieRemoteDataSourceImpl @Inject constructor(
     override suspend fun getMovieDetails(movieId: Long): MovieDetailsDto {
         return apiService.getMovieDetails(movieId)
     }
+    
+    override suspend fun searchMovies(query: String): TMDBResponse {
+        try {
+            println("🔍 RemoteDataSource: Starting search for query: '$query'")
+            if (query.isBlank()) {
+                throw IllegalArgumentException("Search query cannot be blank")
+            }
+            println("🔍 RemoteDataSource: Calling apiService.searchMovies with query: '$query'")
+            val response = apiService.searchMovies(query.trim())
+            println("🔍 RemoteDataSource: Received response with ${response.results.size} movies")
+            return response
+        } catch (e: Exception) {
+            println("❌ RemoteDataSource: Search error: ${e.message}")
+            e.printStackTrace()
+            throw e
+        }
+    }
 }

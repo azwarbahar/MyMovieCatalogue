@@ -35,4 +35,37 @@ class MovieRepositoryImpl @Inject constructor(
             throw e
         }
     }
+    
+    override suspend fun searchMovies(query: String): Flow<List<Movie>> = flow {
+        try {
+            println("🔍 Repository: Starting search for query: '$query'")
+            if (query.isBlank()) {
+                println("🔍 Repository: Query is blank, returning empty list")
+                emit(emptyList())
+                return@flow
+            }
+            
+            println("🔍 Repository: Calling remoteDataSource.searchMovies with query: '$query'")
+            val response = remoteDataSource.searchMovies(query.trim())
+            println("🔍 Repository: Received response with ${response.results.size} movies")
+            
+            val movies = response.results.mapNotNull { movieDto ->
+                try {
+                    val movie = mapper.mapMovieDtoToDomain(movieDto)
+                    println("🔍 Repository: Successfully mapped movie: ${movie.title}")
+                    movie
+                } catch (e: Exception) {
+                    // Log the error and skip this movie
+                    println("❌ Repository: Error mapping movie ${movieDto.id}: ${e.message}")
+                    null
+                }
+            }
+            println("🔍 Repository: Emitting ${movies.size} successfully mapped movies")
+            emit(movies)
+        } catch (e: Exception) {
+            println("❌ Repository: Search error: ${e.message}")
+            e.printStackTrace()
+            throw e
+        }
+    }
 }

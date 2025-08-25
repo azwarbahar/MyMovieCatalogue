@@ -17,4 +17,12 @@ interface TMDBApiService {
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Long
     ): MovieDetailsDto
+    
+    @GET("search/movie")
+    suspend fun searchMovies(
+        @Query("query") query: String,
+        @Query("page") page: Int = 1,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("language") language: String = "en-US"
+    ): TMDBResponse
 }

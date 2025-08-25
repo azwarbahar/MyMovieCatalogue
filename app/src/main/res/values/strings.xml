@@ -2,6 +2,7 @@
     <string name="app_name">Movie Catalogue</string>
     <!-- Page Titles -->
     <string name="home_title">Home</string>
+    <string name="search_title">Search</string>
     <string name="favorites_title">Favorites</string>
     <string name="details_title">Details</string>
     <string name="settings_title">Settings</string>
@@ -14,6 +15,22 @@
     <string name="director_author">Director, Writer</string>
     <string name="adult">Adult</string>
     <string name="not_adult">Not Adult</string>
+    
+    <!-- Search Labels -->
+    <string name="search_placeholder">Search for movies...</string>
+    <string name="search_results">Search Results</string>
+    <string name="no_movies_found">No movies found for</string>
+    <string name="start_typing">Start typing to search for movies</string>
+    <string name="filters">Filters</string>
+    <string name="show">Show</string>
+    <string name="hide">Hide</string>
+    <string name="genre">Genre</string>
+    <string name="year">Year</string>
+    <string name="rating">Rating</string>
+    <string name="all_genres">All Genres</string>
+    <string name="all_years">All Years</string>
+    <string name="all_ratings">All Ratings</string>
+    
     <!-- Button Labels -->
     <string name="day">Day</string>
     <string name="week">Week</string>
@@ -22,7 +39,7 @@
     <string name="back">Back</string>
 
     <!-- Image Alt Text -->
-    <string name="rating">Rating:</string>
+    <string name="rating_label">Rating:</string>
     <string name="movie_poster">Movie Poster</string>
     <string name="favorite">Favorite</string>
     <string name="remove_favorite">Remove Favorite</string>

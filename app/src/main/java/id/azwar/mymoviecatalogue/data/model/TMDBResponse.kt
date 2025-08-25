@@ -18,9 +18,9 @@ data class MovieDto(
     val originalTitle: String,
     val overview: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("vote_average")
@@ -32,7 +32,7 @@ data class MovieDto(
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("media_type")
-    val mediaType: String,
+    val mediaType: String?,
     val video: Boolean,
     @SerializedName("genre_ids")
     val genreIds: List<Int>
@@ -45,9 +45,9 @@ data class MovieDetailsDto(
     val originalTitle: String,
     val overview: String,
     @SerializedName("poster_path")
-    val posterPath: String,
+    val posterPath: String?,
     @SerializedName("backdrop_path")
-    val backdropPath: String,
+    val backdropPath: String?,
     @SerializedName("release_date")
     val releaseDate: String,
     @SerializedName("vote_average")

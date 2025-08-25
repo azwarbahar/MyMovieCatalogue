@@ -9,8 +9,10 @@ import androidx.navigation.compose.composable
 import id.azwar.mymoviecatalogue.viewModels.FavoritesViewModel
 import id.azwar.mymoviecatalogue.viewModels.HomeViewModel
 import id.azwar.mymoviecatalogue.viewModels.DetailsViewModel
+import id.azwar.mymoviecatalogue.viewModels.SearchViewModel
 import id.azwar.mymoviecatalogue.ui.features.favorites.FavoritesScreen
 import id.azwar.mymoviecatalogue.ui.features.home.HomeScreen
+import id.azwar.mymoviecatalogue.ui.features.search.SearchScreen
 import id.azwar.mymoviecatalogue.ui.features.settings.SettingsScreen
 import id.azwar.mymoviecatalogue.ui.features.details.DetailsScreen
 import id.azwar.mymoviecatalogue.util.MainNavigationBuilder
@@ -27,6 +29,18 @@ fun RootNavigationHost(
         composable<MainNavigationBuilder.Home> {
             HomeScreen(
                 hiltViewModel<HomeViewModel>(),
+                onMovieClick = { movieId ->
+                    navController.navigate(MainNavigationBuilder.Details(movieId, false))
+                },
+                onSearchClick = {
+                    navController.navigate(MainNavigationBuilder.Search)
+                }
+            )
+        }
+
+        composable<MainNavigationBuilder.Search> {
+            SearchScreen(
+                hiltViewModel<SearchViewModel>(),
                 onMovieClick = { movieId ->
                     navController.navigate(MainNavigationBuilder.Details(movieId, false))
                 }

@@ -4,9 +4,11 @@ import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import id.azwar.mymoviecatalogue.R
@@ -15,6 +17,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed class MainNavigationBuilder {
     @Serializable data object Home : MainNavigationBuilder()
+    @Serializable data object Search : MainNavigationBuilder()
     @Serializable data object Favorites : MainNavigationBuilder()
     @Serializable data object Settings : MainNavigationBuilder()
     @Serializable data class Details(val movieId: Long, val fromFavorites: Boolean = false) : MainNavigationBuilder()
@@ -32,6 +35,13 @@ sealed class MainNavigationBuilder {
             Icons.Outlined.Home,
             R.string.home_title,
             Home,
+        ),
+        SEARCH(
+            R.string.search_title,
+            Icons.Filled.Search,
+            Icons.Outlined.Search,
+            R.string.search_title,
+            Search,
         ),
         FAVORITES(
             R.string.favorites_title,
